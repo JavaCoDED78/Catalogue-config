@@ -4,7 +4,7 @@ spring:
       client:
         enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalogue
+    url: jdbc:postgresql://catalogue-db:5432/catalogue
     username: catalogue
     password: pass
     driver-class-name: org.postgresql.Driver
@@ -53,9 +53,9 @@ keycloak:
   uri: http://localhost:8082
 management:
   health:
-    livenessstate:
+    livenessState:
       enabled: true
-    readinessstate:
+    readinessState:
       enabled: true
   endpoints:
     web:
@@ -69,7 +69,11 @@ management:
       probability: 1.0
 eureka:
   instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 1
     prefer-ip-address: true
+    client:
   client:
     service-url:
+      registryFetchIntervalSeconds: 1
       defaultZone: http://localhost:8761/eureka/

@@ -19,6 +19,7 @@ spring:
         registration:
           keycloak:
             client-id: customer-app
+            client-name: Catalogue Keycloak
             client-secret: GzILsArHTA7cIVf3uarPadYFEDozfNqW
             authorization-grant-type: authorization_code
             scope:
@@ -43,9 +44,9 @@ spring:
           issuer-uri: http://localhost:8082/realms/catalogue
 management:
   health:
-    livenessstate:
+    livenessState:
       enabled: true
-    readinessstate:
+    readinessState:
       enabled: true
   endpoints:
     web:
@@ -59,7 +60,11 @@ management:
       probability: 1.0
 eureka:
   instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 1
     prefer-ip-address: true
+    client:
   client:
     service-url:
+      registryFetchIntervalSeconds: 1
       defaultZone: http://localhost:8761/eureka/
