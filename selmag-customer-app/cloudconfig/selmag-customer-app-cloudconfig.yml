@@ -1,9 +1,9 @@
-catalogue:
+selmag:
   services:
     catalogue:
-      uri: lb://catalogue-catalogue-service
+      uri: lb://selmag-catalogue-service
     feedback:
-      uri: lb://catalogue-feedback-service
+      uri: lb://selmag-feedback-service
 spring:
   boot:
     admin:
@@ -14,13 +14,13 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8082/realms/catalogue
+            issuer-uri: http://172.17.0.1:8082/realms/selmag
             user-name-attribute: preferred_username
         registration:
           keycloak:
             client-id: customer-app
-            client-name: Catalogue Keycloak
-            client-secret: GzILsArHTA7cIVf3uarPadYFEDozfNqW
+            client-secret: M1bhGCByxWDqVWeokJj6Z9sMGTI41lNc
+            client-name: Selmag Keycloak
             authorization-grant-type: authorization_code
             scope:
               - openid
@@ -28,25 +28,25 @@ spring:
           metrics:
             provider: keycloak
             client-id: customer-app
-            client-secret: GzILsArHTA7cIVf3uarPadYFEDozfNqW
+            client-secret: M1bhGCByxWDqVWeokJj6Z9sMGTI41lNc
             authorization-grant-type: client_credentials
             scope:
               - metrics_server
           discovery:
             provider: keycloak
             client-id: customer-app
-            client-secret: GzILsArHTA7cIVf3uarPadYFEDozfNqW
+            client-secret: M1bhGCByxWDqVWeokJj6Z9sMGTI41lNc
             authorization-grant-type: client_credentials
             scope:
               - discovery
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8082/realms/catalogue
+          issuer-uri: http://172.17.0.1:8082/realms/selmag
 management:
   health:
-    livenessState:
+    livenessstate:
       enabled: true
-    readinessState:
+    readinessstate:
       enabled: true
   endpoints:
     web:
@@ -54,7 +54,7 @@ management:
         include: '*'
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://172.17.0.1:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0
@@ -63,8 +63,7 @@ eureka:
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 1
     prefer-ip-address: true
-    client:
   client:
+    registryFetchIntervalSeconds: 1
     service-url:
-      registryFetchIntervalSeconds: 1
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://172.17.0.1:8761/eureka/
